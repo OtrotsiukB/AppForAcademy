@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,9 +10,7 @@
     <!-- TODO: Update blank fragment layout -->
     <ScrollView android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ConsraintLayoutMain1"
@@ -62,7 +61,7 @@
                 android:layout_marginTop="@dimen/usually12"
                 android:text="@string/nameMovies"
                 android:textAllCaps="false"
-                android:textColor="@color/age"
+                android:textColor="@color/storyline"
                 android:textSize="36sp"
                 android:textStyle="bold"
                 android:typeface="normal"

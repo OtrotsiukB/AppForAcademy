@@ -131,7 +131,7 @@
             android:layout_width="157dp"
             android:layout_height="19dp"
             android:text="@string/nameMovies"
-            android:textColor="@color/age"
+            android:textColor="@color/storyline"
             app:layout_constraintBottom_toTopOf="@+id/tv_movie_time"
             app:layout_constraintEnd_toEndOf="@+id/ic_backraund_movies_one"
             app:layout_constraintHorizontal_bias="0.0"
@@ -186,6 +186,16 @@
             android:src="@drawable/like"
             app:layout_constraintEnd_toEndOf="@+id/ic_backraund_movies_one"
             app:layout_constraintTop_toTopOf="@+id/tv_age" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/gr_movie_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="ic_like,ic_appraisal4_list,tv_name_movies,ic_appraisal5_list,ic_afisha_movies,ic_appraisal1_list,tv_movie_time,ic_appraisal3_list,tv_typeMovie,ic_appraisal2_list,tv_countFeadBack_list,guidelineLeft,ic_backraund_movies_one,ic_can_age,tv_age"
+            app:layout_constraintBottom_toBottomOf="@+id/ic_backraund_movies_one"
+            app:layout_constraintEnd_toEndOf="@+id/ic_backraund_movies_one"
+            app:layout_constraintStart_toStartOf="@+id/ic_backraund_movies_one"
+            app:layout_constraintTop_toTopOf="@+id/ic_backraund_movies_one" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

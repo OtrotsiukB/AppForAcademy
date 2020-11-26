@@ -1,10 +1,12 @@
 package com.appforacademy
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +23,9 @@ class fragment_movies_details : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var listener: ClickListenerDetall?=null
+    private var back:TextView?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,6 +39,37 @@ class fragment_movies_details : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movies_details, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        back=view.findViewById<TextView>(R.id.back).apply {
+            setOnClickListener { listener?.onBackPressed() }
+        }
+
+
+    }
+    fun setListener(l: ClickListenerDetall) {
+        listener = l
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(context is ClickListenerDetall){
+            listener=context
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        listener=null
+    }
+
+    //TODO(WS2:4) Create interface ClickListener
+    interface ClickListenerDetall {
+
+        fun onBackPressed()
+
+    }
+
 
     companion object {
         /**

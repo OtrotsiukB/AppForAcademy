@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,fragment_movies_details.ClickListenerDetall {
 
-    private var fragment_movies_detal = fragment_movies_details()
-    private var fragment_movies_list = fragment_movies_list()
+    private var fragment_movies_detal = fragment_movies_details().apply { setListener(this@MainActivity) }
+    private var fragment_movies_list = fragment_movies_list().apply { setListener(this@MainActivity) }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,14 +19,28 @@ class MainActivity : AppCompatActivity() {
       /*  supportFragmentManager.beginTransaction().apply {
             add(R.id.Fragment_container_Main,fragment_movies_detal)
             commit()
-
         }
         */
-        supportFragmentManager.beginTransaction().apply {
-            add(R.id.Fragment_container_Main,fragment_movies_list)
-            commit()
+                 if(savedInstanceState==null) {
+            supportFragmentManager.beginTransaction().apply {
 
+                add(R.id.Fragment_container_Main, fragment_movies_list)
+
+                commit()
+
+            }
         }
 
     }
+    override fun openMovieDetall(){
+        supportFragmentManager.beginTransaction().apply {
+            addToBackStack(null)
+            add(R.id.Fragment_container_Main,fragment_movies_detal)
+            commit()
+
+        }
+     }
+
+
+
 }
