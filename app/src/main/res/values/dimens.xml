@@ -4,4 +4,8 @@
     <dimen name="usually12">12dp</dimen>
     <dimen name="usually4">4dp</dimen>
     <dimen name="usually8">8dp</dimen>
+    <dimen name="top_58">58dp</dimen>
+    <dimen name="list_onemovies_left6">6dp</dimen>
+    <dimen name="left_grandline">20dp</dimen>
+    <dimen name="like_right">6dp</dimen>
 </resources>
