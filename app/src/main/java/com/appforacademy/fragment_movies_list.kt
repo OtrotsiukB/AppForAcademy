@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.Group
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.fundamentals.domain.ActorsDataSource
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,7 +62,7 @@ class fragment_movies_list : Fragment() {
 
             setOnClickListener { listener?.openMovieDetall() }
         }*/
-        var x = 1
+
         recycler = view.findViewById(R.id.rv_list_movies)
        // recycler = view.findViewById(R.id.rv_actors)
         // recycler?.layoutManager= GridLayoutManager(context,2)
@@ -73,14 +72,10 @@ class fragment_movies_list : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        updateData()
+
     }
 
-    private fun updateData() {
-        (recycler?.adapter as? WS02ActorsAdapter)?.apply {
-            bindActors(ActorsDataSource().getActors())
-        }
-    }
+
 
     fun setListener(l: ClickListener) {
         listener = l

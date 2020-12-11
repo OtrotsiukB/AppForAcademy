@@ -9,10 +9,7 @@
         android:id="@+id/ic_backraund_movies_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/usually8"
-        android:layout_marginTop="30dp"
         android:src="@drawable/bg"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_movies_list" />
 
     <ImageView
@@ -21,7 +18,7 @@
         android:layout_height="wrap_content"
 
 
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="2dp"
         android:background="@drawable/background_movie"
         app:layout_constraintEnd_toEndOf="@+id/ic_backraund_movies_one"
         app:layout_constraintHorizontal_bias="0.0"
@@ -115,7 +112,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/left_grandline"
+        app:layout_constraintGuide_begin="10dp"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView

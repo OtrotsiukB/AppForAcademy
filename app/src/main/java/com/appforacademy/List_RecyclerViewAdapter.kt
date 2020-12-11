@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class List_RecyclerViewAdapter: RecyclerView.Adapter<List_RecyclerViewAdapter.EmptyViewHolder>() {
 
-    /*public var moviesList = listOf<dataMovie>(dataMovie("Avengers: End Game",R.drawable.movie4,"13+","Action, Adventure, Drama",false,
+    public var moviesList = listOf<dataMovie>(dataMovie("Avengers: End Game",R.drawable.movie4,"13+","Action, Adventure, Drama",false,
                                                         4,"125 Reviews","137 min"),
                                                 dataMovie("Tenet",R.drawable.movie5,"16+","Action, Sci-Fi, Thriller ",true,5,
                                                             "98 Reviews","97 min"),
@@ -17,8 +17,8 @@ class List_RecyclerViewAdapter: RecyclerView.Adapter<List_RecyclerViewAdapter.Em
                                                             "38 Reviews","102 min"),
                                                 dataMovie("Wonder Woman 1984",R.drawable.movie7,"13+","Action, Adventure, Fantasy",false,
                                                             5,"74 Reviews","120 min"))
-*/
-    private val moviesList = listOf<String>("qqqqqqqqqqq","wwwwwwwwwww","eeeeeeeeeeeee","rrrrrrrrr")
+
+   // private val moviesList = listOf<String>("qqqqqqqqqqq","wwwwwwwwwww","eeeeeeeeeeeee","rrrrrrrrr")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmptyViewHolder {
         val itemView =LayoutInflater.from(parent.context).inflate(R.layout.view_holder_movie, parent, false)
@@ -33,9 +33,9 @@ class List_RecyclerViewAdapter: RecyclerView.Adapter<List_RecyclerViewAdapter.Em
     override fun onBindViewHolder(holder: EmptyViewHolder, position: Int) {
 
 
-      //  holder.onBind(moviesList[position])
+        holder.onBind(moviesList[position])
       //  holder.nameMovies.text=moviesList[position].NameMovies.toString()
-        holder.nameMovies.text="wwwwwwww"
+       // holder.nameMovies.text="wwwwwwww"
 
     }
    // override fun getItemCount(): Int = 4
@@ -62,7 +62,7 @@ class EmptyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     var time = itemView.findViewById<TextView>(R.id.tv_movie_time)
     var ic_movies = itemView.findViewById<ImageView>(R.id.ic_afisha_movies)
 
-    /* fun onBind(moviesList: dataMovie) {
+     fun onBind(moviesList: dataMovie) {
 
          nameMovies.text=moviesList.NameMovies
          age.text=moviesList.Age
@@ -119,7 +119,7 @@ class EmptyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
          ic_movies.setImageResource(moviesList.IC_movies)
 
 
-     }*/
+     }
 }
 
 
