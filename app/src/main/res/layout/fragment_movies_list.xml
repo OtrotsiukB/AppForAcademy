@@ -6,10 +6,7 @@
     android:layout_height="match_parent"
 
     tools:context=".fragment_movies_list">
-    <ScrollView android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-    <!-- TODO: Update blank fragment layout -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,174 +29,38 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/usually8"
             android:layout_marginTop="@dimen/top_58"
-            android:textColor="@color/age"
             android:text="@string/moviestList"
+            android:textColor="@color/age"
             app:layout_constraintStart_toEndOf="@+id/ic_iconTarget"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/ic_backraund_movies_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/usually8"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/bg"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_actors"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movies_list" />
-
-        <ImageView
-            android:id="@+id/ic_afisha_movies"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-            android:background="@drawable/background_movie"
-            app:layout_constraintEnd_toEndOf="@+id/ic_backraund_movies_one"
-            app:layout_constraintStart_toStartOf="@+id/ic_backraund_movies_one"
-            app:layout_constraintTop_toTopOf="@+id/ic_backraund_movies_one" />
-
-        <TextView
-            android:id="@+id/tv_typeMovie"
-            android:layout_width="156dp"
-            android:layout_height="18dp"
-            android:layout_marginBottom="22dp"
-            android:text="@string/downTitle"
-            android:textColor="@color/downTitle"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ic_afisha_movies"
-            app:layout_constraintEnd_toEndOf="@+id/ic_backraund_movies_one"
-            app:layout_constraintStart_toStartOf="@+id/guidelineLeft" />
-
-        <TextView
-            android:id="@+id/tv_countFeadBack_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/countFeedback"
-            android:textColor="@color/countFeedback"
-            android:textSize="8sp"
-            app:layout_constraintStart_toEndOf="@+id/ic_appraisal5_list"
-            app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie" />
-
-        <ImageView
-            android:id="@+id/ic_appraisal5_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_countFeadBack_list"
-            app:layout_constraintStart_toEndOf="@+id/ic_appraisal4_list"
-            app:layout_constraintTop_toTopOf="@+id/tv_countFeadBack_list"
-            app:srcCompat="@drawable/staricon" />
-
-        <ImageView
-            android:id="@+id/ic_appraisal4_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_countFeadBack_list"
-            app:layout_constraintStart_toEndOf="@+id/ic_appraisal3_list"
-            app:layout_constraintTop_toTopOf="@+id/tv_countFeadBack_list"
-            app:srcCompat="@drawable/staricon1" />
-
-        <ImageView
-            android:id="@+id/ic_appraisal3_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_countFeadBack_list"
-            app:layout_constraintStart_toEndOf="@+id/ic_appraisal2_list"
-            app:layout_constraintTop_toTopOf="@+id/tv_countFeadBack_list"
-            app:srcCompat="@drawable/staricon1" />
-
-        <ImageView
-            android:id="@+id/ic_appraisal2_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            app:layout_constraintBottom_toBottomOf="@+id/tv_countFeadBack_list"
-            app:layout_constraintStart_toEndOf="@+id/ic_appraisal1_list"
-            app:layout_constraintTop_toTopOf="@+id/tv_countFeadBack_list"
-            app:srcCompat="@drawable/staricon1" />
-
-        <ImageView
-            android:id="@+id/ic_appraisal1_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_countFeadBack_list"
-            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toTopOf="@+id/tv_countFeadBack_list"
-            app:srcCompat="@drawable/staricon1" />
-
-        <TextView
-            android:id="@+id/tv_name_movies"
-            android:layout_width="157dp"
-            android:layout_height="19dp"
-            android:text="@string/nameMovies"
-            android:textColor="@color/storyline"
-            app:layout_constraintBottom_toTopOf="@+id/tv_movie_time"
-            app:layout_constraintEnd_toEndOf="@+id/ic_backraund_movies_one"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guidelineLeft" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/left_grandline"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_movie_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/usually8"
-
-            android:text="@string/movie_long_time"
-            android:textColor="@color/countFeedback"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ic_backraund_movies_one"
-            app:layout_constraintStart_toStartOf="@+id/guidelineLeft" />
-
-        <ImageView
-            android:id="@+id/ic_can_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/usually8"
-            android:src="@drawable/rectangle"
-            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toTopOf="@+id/ic_backraund_movies_one" />
-
-        <TextView
-            android:id="@+id/tv_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/canAge"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ic_can_age"
-            app:layout_constraintEnd_toEndOf="@+id/ic_can_age"
-            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toTopOf="@+id/ic_can_age" />
-
-        <ImageView
-            android:id="@+id/ic_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/like_right"
-            android:src="@drawable/like"
-            app:layout_constraintEnd_toEndOf="@+id/ic_backraund_movies_one"
-            app:layout_constraintTop_toTopOf="@+id/tv_age" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/gr_movie_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:constraint_referenced_ids="ic_like,ic_appraisal4_list,tv_name_movies,ic_appraisal5_list,ic_afisha_movies,ic_appraisal1_list,tv_movie_time,ic_appraisal3_list,tv_typeMovie,ic_appraisal2_list,tv_countFeadBack_list,guidelineLeft,ic_backraund_movies_one,ic_can_age,tv_age"
-            app:layout_constraintBottom_toBottomOf="@+id/ic_backraund_movies_one"
-            app:layout_constraintEnd_toEndOf="@+id/ic_backraund_movies_one"
-            app:layout_constraintStart_toStartOf="@+id/ic_backraund_movies_one"
-            app:layout_constraintTop_toTopOf="@+id/ic_backraund_movies_one" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list_movies"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movies_list"
+            app:spanCount="2"
+            tools:listitem="@layout/view_holder_movie"
+            tools:orientation="horizontal" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 
 
 </FrameLayout>

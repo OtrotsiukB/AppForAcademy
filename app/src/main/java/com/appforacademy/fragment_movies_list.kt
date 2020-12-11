@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.fundamentals.domain.ActorsDataSource
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +32,8 @@ class fragment_movies_list : Fragment() {
 
     private var tv_try_listener:TextView?=null
 
+    private var recycler: RecyclerView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -43,11 +48,12 @@ class fragment_movies_list : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movies_list, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        groupMovie= view.findViewById<Group>(R.id.gr_movie_one).apply {
+       /* groupMovie= view.findViewById<Group>(R.id.gr_movie_one).apply {
             setOnClickListener { listener?.openMovieDetall() }
 
         }
@@ -56,6 +62,23 @@ class fragment_movies_list : Fragment() {
         tv_try_listener=view.findViewById<TextView>(R.id.tv_name_movies).apply {
 
             setOnClickListener { listener?.openMovieDetall() }
+        }*/
+        var x = 1
+        recycler = view.findViewById(R.id.rv_list_movies)
+       // recycler = view.findViewById(R.id.rv_actors)
+        // recycler?.layoutManager= GridLayoutManager(context,2)
+        recycler?.adapter=List_RecyclerViewAdapter()
+       // recycler?.adapter = WS02ActorsAdapter()
+    }
+    override fun onStart() {
+        super.onStart()
+
+        updateData()
+    }
+
+    private fun updateData() {
+        (recycler?.adapter as? WS02ActorsAdapter)?.apply {
+            bindActors(ActorsDataSource().getActors())
         }
     }
 
