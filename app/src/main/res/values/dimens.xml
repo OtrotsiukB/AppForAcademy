@@ -8,4 +8,12 @@
     <dimen name="list_onemovies_left6">6dp</dimen>
     <dimen name="left_grandline">20dp</dimen>
     <dimen name="like_right">6dp</dimen>
+
+
+    <dimen name="space_x1">8dp</dimen>
+
+    <!-- FragmentActors -->
+    <dimen name="fragment_actors_avatar_space">48dp</dimen>
+    <!-- FragmentActors -->
+
 </resources>
