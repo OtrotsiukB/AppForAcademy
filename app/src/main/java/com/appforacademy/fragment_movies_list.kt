@@ -21,7 +21,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [fragment_movies_list.newInstance] factory method to
  * create an instance of this fragment.
  */
-class fragment_movies_list : Fragment() {
+class fragment_movies_list : Fragment(),List_RecyclerViewAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -55,7 +55,7 @@ class fragment_movies_list : Fragment() {
 
         recycler = view.findViewById(R.id.rv_list_movies)
 
-        recycler?.adapter=List_RecyclerViewAdapter()
+        recycler?.adapter=List_RecyclerViewAdapter(this)
 
     }
     override fun onStart() {
@@ -106,5 +106,9 @@ class fragment_movies_list : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onItemClick(movie: dataMovie) {
+        listener?.openMovieDetall()
     }
 }

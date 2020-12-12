@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +26,7 @@ class fragment_movies_details : Fragment() {
 
     private var listener: ClickListenerDetall?=null
     private var back:TextView?=null
+    private var recycler: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,11 @@ class fragment_movies_details : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        recycler = view.findViewById(R.id.rv_actors)
+
+        recycler?.adapter=ActorRVAdapter()
+
         back=view.findViewById<TextView>(R.id.back).apply {
             setOnClickListener { listener?.onBackPressed() }
         }

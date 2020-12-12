@@ -2,25 +2,15 @@ package com.appforacademy
 
 //import android.R
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.LayerDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.coroutines.coroutineContext
-import android.graphics.drawable.GradientDrawable as GradientDrawable1
 
 
-class List_RecyclerViewAdapter: RecyclerView.Adapter<List_RecyclerViewAdapter.EmptyViewHolder>() {
+class List_RecyclerViewAdapter(private val listener: OnItemClickListener): RecyclerView.Adapter<List_RecyclerViewAdapter.EmptyViewHolder>() {
 
     private var moviesList = listOf<dataMovie>(
         dataMovie(
@@ -59,7 +49,10 @@ class List_RecyclerViewAdapter: RecyclerView.Adapter<List_RecyclerViewAdapter.Em
         )
     )
 
-   // private val moviesList = listOf<String>("qqqqqqqqqqq","wwwwwwwwwww","eeeeeeeeeeeee","rrrrrrrrr")
+    //private var listener:OnItemClickListener
+    interface OnItemClickListener {
+        fun onItemClick(movie: dataMovie)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmptyViewHolder {
         val itemView =LayoutInflater.from(parent.context).inflate(
@@ -78,7 +71,7 @@ class List_RecyclerViewAdapter: RecyclerView.Adapter<List_RecyclerViewAdapter.Em
     override fun onBindViewHolder(holder: EmptyViewHolder, position: Int) {
 
 
-        holder.onBind(moviesList[position])
+        holder.onBind(moviesList[position],listener)
       //  holder.nameMovies.text=moviesList[position].NameMovies.toString()
        // holder.nameMovies.text="wwwwwwww"
 
@@ -108,7 +101,7 @@ class EmptyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     var ic_movies = itemView.findViewById<ImageView>(R.id.ic_afisha_movies)
 
 
-     fun onBind(moviesList: dataMovie) {
+     fun onBind(moviesList: dataMovie, listener: OnItemClickListener) {
 
          nameMovies.text=moviesList.NameMovies
          age.text=moviesList.Age
@@ -165,10 +158,12 @@ class EmptyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         // ic_movies.setBackgroundResource(R.drawable.gradient)
          ic_movies.setImageResource(moviesList.IC_movies)
         // ic_movies.setBackgroundResource(R.drawable.gradient)
-
+         itemView.setOnClickListener { listener.onItemClick(moviesList) }
 
      }
 }
+
+
 
 
     //////////////////////////
