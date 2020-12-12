@@ -1,27 +1,72 @@
 package com.appforacademy
 
+//import android.R
+
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.coroutines.coroutineContext
+import android.graphics.drawable.GradientDrawable as GradientDrawable1
+
 
 class List_RecyclerViewAdapter: RecyclerView.Adapter<List_RecyclerViewAdapter.EmptyViewHolder>() {
 
-    public var moviesList = listOf<dataMovie>(dataMovie("Avengers: End Game",R.drawable.movie4,"13+","Action, Adventure, Drama",false,
-                                                        4,"125 Reviews","137 min"),
-                                                dataMovie("Tenet",R.drawable.movie5,"16+","Action, Sci-Fi, Thriller ",true,5,
-                                                            "98 Reviews","97 min"),
-                                                dataMovie("Black Widow",R.drawable.movie6,"13+","Action, Adventure, Sci-Fi",false,4,
-                                                            "38 Reviews","102 min"),
-                                                dataMovie("Wonder Woman 1984",R.drawable.movie7,"13+","Action, Adventure, Fantasy",false,
-                                                            5,"74 Reviews","120 min"))
+    private var moviesList = listOf<dataMovie>(
+        dataMovie(
+            "Avengers: End Game", R.drawable.movie4, "13+", "Action, Adventure, Drama", false,
+            4, "125 Reviews", "137 min"
+        ),
+        dataMovie(
+            "Tenet",
+            R.drawable.movie5,
+            "16+",
+            "Action, Sci-Fi, Thriller ",
+            true,
+            5,
+            "98 Reviews",
+            "97 min"
+        ),
+        dataMovie(
+            "Black Widow",
+            R.drawable.movie6,
+            "13+",
+            "Action, Adventure, Sci-Fi",
+            false,
+            4,
+            "38 Reviews",
+            "102 min"
+        ),
+        dataMovie(
+            "Wonder Woman 1984",
+            R.drawable.movie7,
+            "13+",
+            "Action, Adventure, Fantasy",
+            false,
+            5,
+            "74 Reviews",
+            "120 min"
+        )
+    )
 
    // private val moviesList = listOf<String>("qqqqqqqqqqq","wwwwwwwwwww","eeeeeeeeeeeee","rrrrrrrrr")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmptyViewHolder {
-        val itemView =LayoutInflater.from(parent.context).inflate(R.layout.view_holder_movie, parent, false)
+        val itemView =LayoutInflater.from(parent.context).inflate(
+            R.layout.view_holder_movie,
+            parent,
+            false
+        )
         return EmptyViewHolder(itemView)
        // return EmptyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_holder_movie, parent, false))
 
@@ -61,6 +106,7 @@ class EmptyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     var reviews = itemView.findViewById<TextView>(R.id.tv_countFeadBack_list)
     var time = itemView.findViewById<TextView>(R.id.tv_movie_time)
     var ic_movies = itemView.findViewById<ImageView>(R.id.ic_afisha_movies)
+
 
      fun onBind(moviesList: dataMovie) {
 
@@ -116,7 +162,9 @@ class EmptyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
          }
          reviews.text=moviesList.Reviews
          time.text=moviesList.Time
+        // ic_movies.setBackgroundResource(R.drawable.gradient)
          ic_movies.setImageResource(moviesList.IC_movies)
+        // ic_movies.setBackgroundResource(R.drawable.gradient)
 
 
      }

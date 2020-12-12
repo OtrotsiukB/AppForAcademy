@@ -52,22 +52,11 @@ class fragment_movies_list : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       /* groupMovie= view.findViewById<Group>(R.id.gr_movie_one).apply {
-            setOnClickListener { listener?.openMovieDetall() }
-
-        }
-
-
-        tv_try_listener=view.findViewById<TextView>(R.id.tv_name_movies).apply {
-
-            setOnClickListener { listener?.openMovieDetall() }
-        }*/
 
         recycler = view.findViewById(R.id.rv_list_movies)
-       // recycler = view.findViewById(R.id.rv_actors)
-        // recycler?.layoutManager= GridLayoutManager(context,2)
+
         recycler?.adapter=List_RecyclerViewAdapter()
-       // recycler?.adapter = WS02ActorsAdapter()
+
     }
     override fun onStart() {
         super.onStart()
