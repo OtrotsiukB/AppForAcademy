@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/usually"
-            android:layout_marginTop="@dimen/top_58"
+            android:layout_marginTop="40dp"
             android:src="@drawable/combined_shape"
 
             app:layout_constraintStart_toStartOf="parent"
@@ -28,28 +28,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/usually8"
-            android:layout_marginTop="@dimen/top_58"
             android:text="@string/moviestList"
             android:textColor="@color/age"
             app:layout_constraintStart_toEndOf="@+id/ic_iconTarget"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_actors"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/ic_iconTarget" />
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list_movies"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/usually8"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
