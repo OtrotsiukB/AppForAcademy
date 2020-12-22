@@ -8,16 +8,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.android.academy.fundamentals.homework.features.data.Movie
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.CoroutineScope
-
-import com.bumptech.glide.request.RequestOptions
 
 
-class List_RecyclerViewAdapter(private val listener: OnItemClickListener): RecyclerView.Adapter<List_RecyclerViewAdapter.EmptyViewHolder>() {
+class MoviesRVAdapter(private val listener: OnItemClickListener): RecyclerView.Adapter<MoviesRVAdapter.EmptyViewHolder>() {
 
     private var data = listOf<Movie>()
 
@@ -32,7 +28,7 @@ class List_RecyclerViewAdapter(private val listener: OnItemClickListener): Recyc
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmptyViewHolder {
 
         val itemView =LayoutInflater.from(parent.context).inflate(
-            R.layout.view_holder_movie,
+            R.layout.movie_holder,
             parent,
             false
         )

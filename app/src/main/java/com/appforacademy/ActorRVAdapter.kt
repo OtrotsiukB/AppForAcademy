@@ -15,7 +15,7 @@ class ActorRVAdapter:RecyclerView.Adapter<ActorRVAdapter.EmptyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmptyViewHolder {
         val itemView =LayoutInflater.from(parent.context).inflate(
-            R.layout.actorsitem,
+            R.layout.actors_holder,
             parent,
             false
         )
