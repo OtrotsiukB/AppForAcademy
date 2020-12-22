@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.android.academy.fundamentals.homework.features.data.Actor
+import com.android.academy.fundamentals.homework.features.data.Movie
+import com.bumptech.glide.Glide
 
 class ActorRVAdapter:RecyclerView.Adapter<ActorRVAdapter.EmptyViewHolder>() {
 
-    private var actorList = listOf<DataActors>(DataActors(R.drawable.movie,"Robert Downey Jr."),
-                                                DataActors(R.drawable.movie1,"Chris Evans"),
-                                                DataActors(R.drawable.movie2,"Mark Ruffalo"),
-                                                DataActors(R.drawable.movie3,"Chris Hemsworth")
-    )
+    private var actorList = listOf<Actor>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmptyViewHolder {
         val itemView =LayoutInflater.from(parent.context).inflate(
             R.layout.actorsitem,
@@ -21,6 +21,9 @@ class ActorRVAdapter:RecyclerView.Adapter<ActorRVAdapter.EmptyViewHolder>() {
         )
         return EmptyViewHolder(itemView)
 
+    }
+    fun setData(data: List<Actor>) {
+        this.actorList = data
     }
 
     override fun onBindViewHolder(holder: EmptyViewHolder, position: Int) {
@@ -39,9 +42,13 @@ class ActorRVAdapter:RecyclerView.Adapter<ActorRVAdapter.EmptyViewHolder>() {
         var ic_actor = itemView.findViewById<ImageView>(R.id.actorRV)
 
 
-        fun onBind(actorList: DataActors) {
-            nameActor.text=actorList.nameActor
-            ic_actor.setImageResource(actorList.ic_actor)
+        fun onBind(actorList: Actor) {
+            nameActor.text=actorList.name
+            Glide.with(itemView.context)
+                    //.load(R.drawable.movie6)
+                    .load(actorList.picture)
+                    .into(ic_actor)
+           // ic_actor.setImageResource(actorList.ic_actor)
 
 
         }

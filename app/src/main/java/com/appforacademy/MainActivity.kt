@@ -3,6 +3,7 @@ package com.appforacademy
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.android.academy.fundamentals.homework.features.data.Movie
 
 class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,fragment_movies_details.ClickListenerDetall {
 
@@ -32,10 +33,10 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
         }
 
     }
-    override fun openMovieDetall(){
+    override fun openMovieDetall(data: Movie){
         supportFragmentManager.beginTransaction().apply {
             addToBackStack(null)
-            add(R.id.Fragment_container_Main,fragment_movies_detal)
+            add(R.id.Fragment_container_Main,fragment_movies_details.newInstance(data).apply { setListener(this@MainActivity) })//fragment_movies_detal
             commit()
 
         }

@@ -48,63 +48,30 @@
         tools:layout_editor_absoluteX="9dp"
         tools:layout_editor_absoluteY="179dp" />
 
+    <RatingBar
+        android:id="@+id/ratingBarOnHolderMovie"
+        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:numStars="5"
+        android:progressBackgroundTint="@color/downTitle"
+        android:progressTint="@color/downTitle"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toTopOf="@+id/tv_countFeadBack_list" />
+
     <TextView
         android:id="@+id/tv_countFeadBack_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/countFeedback"
         android:textColor="@color/countFeedback"
         android:textSize="8sp"
-        app:layout_constraintStart_toEndOf="@+id/ic_appraisal5_list"
-        app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie"
-        tools:layout_editor_absoluteX="106dp"
-        tools:layout_editor_absoluteY="210dp" />
-
-    <ImageView
-        android:id="@+id/ic_appraisal5_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_countFeadBack_list"
-        app:layout_constraintStart_toEndOf="@+id/ic_appraisal4_list"
-        app:layout_constraintTop_toTopOf="@+id/tv_countFeadBack_list"
-        app:srcCompat="@drawable/staricon" />
-
-    <ImageView
-        android:id="@+id/ic_appraisal4_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_countFeadBack_list"
-        app:layout_constraintStart_toEndOf="@+id/ic_appraisal3_list"
-        app:layout_constraintTop_toTopOf="@+id/tv_countFeadBack_list"
-        app:srcCompat="@drawable/staricon1" />
-
-    <ImageView
-        android:id="@+id/ic_appraisal3_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_countFeadBack_list"
-        app:layout_constraintStart_toEndOf="@+id/ic_appraisal2_list"
-        app:layout_constraintTop_toTopOf="@+id/tv_countFeadBack_list"
-        app:srcCompat="@drawable/staricon1" />
-
-    <ImageView
-        android:id="@+id/ic_appraisal2_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        app:layout_constraintBottom_toBottomOf="@+id/tv_countFeadBack_list"
-        app:layout_constraintStart_toEndOf="@+id/ic_appraisal1_list"
-        app:layout_constraintTop_toTopOf="@+id/tv_countFeadBack_list"
-        app:srcCompat="@drawable/staricon1" />
-
-    <ImageView
-        android:id="@+id/ic_appraisal1_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_countFeadBack_list"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toTopOf="@+id/tv_countFeadBack_list"
-        app:srcCompat="@drawable/staricon1" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ratingBarOnHolderMovie"
+        app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie" />
 
     <TextView
         android:id="@+id/tv_name_movies"
@@ -171,7 +138,7 @@
         android:id="@+id/gr_movie_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="ic_like,ic_appraisal4_list,tv_name_movies,ic_appraisal5_list,ic_afisha_movies,ic_appraisal1_list,tv_movie_time,ic_appraisal3_list,tv_typeMovie,ic_appraisal2_list,tv_countFeadBack_list,guidelineLeft,ic_backraund_movies_one,ic_can_age,tv_age"
+        app:constraint_referenced_ids="ic_like,tv_name_movies,ic_afisha_movies,tv_movie_time,tv_typeMovie,tv_countFeadBack_list,guidelineLeft,ic_backraund_movies_one,ic_can_age,tv_age"
         app:layout_constraintBottom_toBottomOf="@+id/ic_backraund_movies_one"
         app:layout_constraintEnd_toEndOf="@+id/ic_backraund_movies_one"
         app:layout_constraintStart_toStartOf="@+id/ic_backraund_movies_one"

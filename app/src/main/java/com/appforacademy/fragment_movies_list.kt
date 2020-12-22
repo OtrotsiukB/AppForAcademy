@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.academy.fundamentals.homework.features.data.Movie
+import com.android.academy.fundamentals.homework.features.data.loadMovies
+import kotlinx.coroutines.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,23 +24,22 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class fragment_movies_list : Fragment(),List_RecyclerViewAdapter.OnItemClickListener {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private var listener:ClickListener? = null
-    private var groupMovie:Group? = null
 
-    private var tv_try_listener:TextView?=null
+    private var recycler: RecyclerView? = view?.findViewById(R.id.rv_list_movies)
 
-    private var recycler: RecyclerView? = null
+    private var movieList: List<Movie>? = null
+    private var job: Job? = null
+    private val movieAdapter = List_RecyclerViewAdapter(this)
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+
     }
 
     override fun onCreateView(
@@ -48,14 +49,28 @@ class fragment_movies_list : Fragment(),List_RecyclerViewAdapter.OnItemClickList
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movies_list, container, false)
 
+
     }
+
+      fun loadMoviesInList(){
+        CoroutineScope(Dispatchers.IO).launch {
+            movieList = loadMovies(requireContext())
+            addAdapterMoviesByAdapter()
+        }
+    }
+    suspend fun addAdapterMoviesByAdapter()= withContext(Dispatchers.Main) {
+        movieAdapter.setData(movieList!!)
+        recycler?.adapter=movieAdapter
+    }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         recycler = view.findViewById(R.id.rv_list_movies)
+        loadMoviesInList()
 
-        recycler?.adapter=List_RecyclerViewAdapter(this)
 
     }
     override fun onStart() {
@@ -70,9 +85,10 @@ class fragment_movies_list : Fragment(),List_RecyclerViewAdapter.OnItemClickList
         listener = l
     }
 
-    //TODO(WS2:4) Create interface ClickListener
+
     interface ClickListener {
-        fun openMovieDetall()
+        fun openMovieDetall(data: Movie)
+
 
     }
 
@@ -108,7 +124,7 @@ class fragment_movies_list : Fragment(),List_RecyclerViewAdapter.OnItemClickList
             }
     }
 
-    override fun onItemClick(movie: dataMovie) {
-        listener?.openMovieDetall()
+    override fun onItemClick(data: Movie) {
+        listener?.openMovieDetall(data)
     }
 }

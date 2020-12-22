@@ -21,14 +21,24 @@
 
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/ic_backMovies"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/orig" />
+
+            <View
+                android:id="@+id/viewDark"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/gradient"
+                app:layout_constraintBottom_toBottomOf="@+id/ic_backMovies"
+                app:layout_constraintEnd_toEndOf="@+id/ic_backMovies"
+                app:layout_constraintStart_toStartOf="@+id/ic_backMovies"
+                app:layout_constraintTop_toTopOf="@+id/ic_backMovies" />
 
             <TextView
                 android:id="@+id/back"
@@ -55,11 +65,12 @@
 
             <TextView
                 android:id="@+id/nameMovie"
-                android:layout_width="216dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/usually"
                 android:layout_marginTop="@dimen/usually12"
                 android:text="@string/nameMovies"
+                android:textAlignment="viewStart"
                 android:textAllCaps="false"
                 android:textColor="@color/storyline"
                 android:textSize="36sp"
@@ -83,66 +94,10 @@
                 android:id="@+id/countFeadBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="103dp"
                 android:text="@string/countFeedback"
                 android:textColor="@color/countFeedback"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ratingBarDetall"
                 app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie" />
-
-            <ImageView
-                android:id="@+id/appraisal5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/usually4"
-                android:layout_marginEnd="@dimen/usually8"
-                app:layout_constraintEnd_toStartOf="@+id/countFeadBack"
-                app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie"
-                app:srcCompat="@drawable/staricon" />
-
-            <ImageView
-                android:id="@+id/appraisal4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/usually4"
-                android:layout_marginEnd="25dp"
-                app:layout_constraintEnd_toStartOf="@+id/countFeadBack"
-                app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie"
-                app:srcCompat="@drawable/staricon1"
-                />
-
-            <ImageView
-                android:id="@+id/appraisal3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/usually4"
-                android:layout_marginEnd="41dp"
-                app:layout_constraintEnd_toStartOf="@+id/countFeadBack"
-                app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie"
-                app:srcCompat="@drawable/staricon1"
-                />
-
-            <ImageView
-                android:id="@+id/appraisal2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/usually4"
-                android:layout_marginEnd="58dp"
-
-                app:layout_constraintEnd_toStartOf="@+id/countFeadBack"
-                app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie"
-                app:srcCompat="@drawable/staricon1"
-                />
-
-            <ImageView
-                android:id="@+id/appraisal1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/usually4"
-                android:layout_marginEnd="74dp"
-                app:layout_constraintEnd_toStartOf="@+id/countFeadBack"
-                app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie"
-                app:srcCompat="@drawable/staricon1"
-                />
 
             <TextView
                 android:id="@+id/Storyline"
@@ -187,16 +142,30 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_actors"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginStart="@dimen/usually"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/usually"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-
                 app:layout_constraintTop_toBottomOf="@+id/cast"
                 app:spanCount="4"
                 tools:orientation="horizontal" />
+
+            <RatingBar
+                android:id="@+id/ratingBarDetall"
+                style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:numStars="5"
+                android:progressBackgroundTint="@color/downTitle"
+                android:progressTint="@color/downTitle"
+                app:layout_constraintStart_toStartOf="@+id/tv_typeMovie"
+                app:layout_constraintTop_toTopOf="@+id/countFeadBack" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
