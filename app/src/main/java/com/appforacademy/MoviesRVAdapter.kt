@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.academy.fundamentals.homework.features.data.Movie
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 
 class MoviesRVAdapter(private val listener: OnItemClickListener): RecyclerView.Adapter<MoviesRVAdapter.EmptyViewHolder>() {
@@ -85,6 +87,7 @@ class EmptyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
          Glide.with(itemView.context)
              //.load(R.drawable.movie6)
               .load(data.poster)
+
               .into(ic_movies)
 
 

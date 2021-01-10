@@ -23,9 +23,9 @@ private const val ARG_MOVIE = "param1"
  * Use the [fragment_movies_details.newInstance] factory method to
  * create an instance of this fragment.
  */
-class fragment_movies_details : Fragment() {
+class fragment_movies_details : Fragment(),ViewMoviesDetall {
     // TODO: Rename and change types of parameters
-    private var movieData:Movie?=null
+    //private var movieData:Movie?=null
 
     private var listener: ClickListenerDetall?=null
     private var back:TextView?=null
@@ -40,12 +40,15 @@ class fragment_movies_details : Fragment() {
     private var ratingBar:RatingBar?=null
     private val actorAdapter = ActorRVAdapter()
 
+    private var presenterMoviesDetall:PresenterMoviesDetall?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            movieData = it.getParcelable(ARG_MOVIE)
 
+            var movieData:Movie? = it.getParcelable(ARG_MOVIE)
+            //создание презентора
+            presenterMoviesDetall= PresenterMoviesDetall(movieData)
         }
     }
 
@@ -55,7 +58,7 @@ class fragment_movies_details : Fragment() {
         return inflater.inflate(R.layout.fragment_movies_details, container, false)
     }
 
-    private fun addInfoMovieDetal(){
+    override fun addInfoMovieDetal(movieData:Movie?){
         Glide.with(this)
             .load(movieData?.backdrop)
             .into(backPicMovie!!)
@@ -68,13 +71,13 @@ class fragment_movies_details : Fragment() {
     }
 
 
-    private fun openActorAdapter(){
+    override fun openActorAdapter(movieData:Movie?){
         actorAdapter.setData(movieData!!.actors)
         recycler?.adapter=actorAdapter
     }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+    // иницыализацыя переменных
+    fun initViews(view: View){
         backPicMovie=view.findViewById(R.id.ic_backMovies)
         nameMovie=view.findViewById(R.id.nameMovie)
         genre=view.findViewById(R.id.tv_typeMovie)
@@ -84,20 +87,30 @@ class fragment_movies_details : Fragment() {
         ratingBar=view.findViewById(R.id.ratingBarDetall)
 
         recycler = view.findViewById(R.id.rv_actors)
-
-        //recycler?.adapter=ActorRVAdapter()
-
+    }
+    //повесить слушатель
+    fun setListener(view: View){
         back=view.findViewById<TextView>(R.id.back).apply {
             setOnClickListener { listener?.onBackPressed() }
         }
-        addInfoMovieDetal()
-        openActorAdapter()
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initViews(view)
+        setListener(view)
+        presenterMoviesDetall?.attachView(this)
+        presenterMoviesDetall?.addInfoByMovieDetallFromPresenter()
+        presenterMoviesDetall?.openActorAdapterFromPresenter()
+
     }
     fun setListener(l: ClickListenerDetall) {
         listener = l
     }
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+
         if(context is ClickListenerDetall){
             listener=context
         }
@@ -105,6 +118,8 @@ class fragment_movies_details : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        presenterMoviesDetall?.detachView()
+
         listener=null
     }
 
