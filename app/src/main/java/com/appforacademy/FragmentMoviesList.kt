@@ -13,7 +13,7 @@ import kotlinx.coroutines.*
 
 
 
-class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener {
+class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,ViewMoviesList {
 
     private var listener:ClickListener? = null
 
@@ -23,7 +23,7 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener {
 
     private val movieAdapter = MoviesRVAdapter(this)
 
-
+    private var presenterMoviesList:PresenterMoviesList?=null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +42,7 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener {
 
     }
 
-      fun loadMoviesInList(){
+     override fun loadMoviesInList(){
         CoroutineScope(Dispatchers.IO).launch {
             movieList = loadMovies(requireContext())
             addAdapterMoviesByAdapter()
@@ -53,13 +53,18 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener {
         recycler?.adapter=movieAdapter
     }
 
-
+    fun initViews(view: View){
+        recycler = view.findViewById(R.id.rv_list_movies)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenterMoviesList= PresenterMoviesList()
+        presenterMoviesList?.attachView(this)
 
-        recycler = view.findViewById(R.id.rv_list_movies)
-        loadMoviesInList()
+        initViews(view)
+        presenterMoviesList?.loadMoviesInListfromPresenter()
+       // loadMoviesInList()
 
 
     }
@@ -91,6 +96,7 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        presenterMoviesList?.detachView()
         listener=null
     }
 
@@ -99,7 +105,10 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener {
 
     }
 
-    override fun onItemClick(data: Movie) {
+    override fun openMoviesDetallNew(data: Movie){
         listener?.openMovieDetall(data)
+    }
+    override fun onItemClick(data: Movie) {
+        presenterMoviesList?.openMoviesDetallNew(data)
     }
 }
