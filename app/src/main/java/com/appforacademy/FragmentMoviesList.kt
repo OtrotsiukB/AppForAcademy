@@ -44,7 +44,10 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
 
      override fun loadMoviesInList(){
         CoroutineScope(Dispatchers.IO).launch {
+            if (movieList==null)
+            {
             movieList = loadMovies(requireContext())
+            }
             addAdapterMoviesByAdapter()
         }
     }
@@ -52,6 +55,7 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
         movieAdapter.setData(movieList!!)
         recycler?.adapter=movieAdapter
     }
+
 
     fun initViews(view: View){
         recycler = view.findViewById(R.id.rv_list_movies)
@@ -108,6 +112,13 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
     override fun openMoviesDetallNew(data: Movie){
         listener?.openMovieDetall(data)
     }
+
+    override suspend fun loadMoviesInListFromOnline(inMovieList: List<Movie>)= withContext(Dispatchers.Main) {
+       movieList= inMovieList
+        movieAdapter.setData(movieList!!)
+        recycler?.adapter=movieAdapter
+    }
+
     override fun onItemClick(data: Movie) {
         presenterMoviesList?.openMoviesDetallNew(data)
     }
