@@ -1,5 +1,6 @@
 package com.appforacademy
 
+import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -56,7 +57,11 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
         recycler?.adapter=movieAdapter
     }
 
-
+    //котекст для базы данных
+    override fun giveContext():Context{
+        val con = requireContext().applicationContext
+        return con
+    }
     fun initViews(view: View){
         recycler = view.findViewById(R.id.rv_list_movies)
     }

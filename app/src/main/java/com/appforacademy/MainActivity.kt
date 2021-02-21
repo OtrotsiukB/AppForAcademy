@@ -3,7 +3,9 @@ package com.appforacademy
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.room.Room
 import com.android.academy.fundamentals.homework.features.data.Movie
+import com.appforacademy.DBRoom.DatabaseR
 
 class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,fragment_movies_details.ClickListenerDetall {
 
@@ -15,7 +17,11 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+       /* val db = Room.databaseBuilder(
+            applicationContext,
+            DatabaseR::class.java, "roomdb").build()*/
+        // var locationsDb: DatabaseR = DatabaseR.create(applicationContext)
+       // var loc = db
                  if(savedInstanceState==null) {
             supportFragmentManager.beginTransaction().apply {
 
