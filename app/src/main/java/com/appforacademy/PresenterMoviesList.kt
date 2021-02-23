@@ -264,22 +264,9 @@ class PresenterMoviesList {
          val apiKey = "af310d8d095ef00f027a608e81a1be5e"
         private val retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
-               // .addConverterFactory(json.asConverterFactory(contentType))
+
                 .addConverterFactory(GsonConverterFactory.create())
 
-                /*.client(
-                        OkHttpClient.Builder()
-                                .addInterceptor { chain ->
-                                    val newHttpUrl = chain.request().url.newBuilder()
-                                            .addQueryParameter("api_key", apiKey)
-                                            .build()
-                                    val newRequest = chain.request().newBuilder()
-                                            .url(newHttpUrl)
-                                            .build()
-                                    chain.proceed(newRequest)
-                                }
-                                .build()
-                )*/
                 .build()
 
 

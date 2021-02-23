@@ -14,8 +14,11 @@ class WorkWithWorkmeneger {
 
     //private constarin2
     val delayedRequest = OneTimeWorkRequest.Builder(WorkMeneger::class.java)
-        .setInitialDelay(15, TimeUnit.SECONDS)
+        .setInitialDelay(8, TimeUnit.HOURS)
         .build()
+   /* val delayedRequest = OneTimeWorkRequest.Builder(WorkMeneger::class.java)
+        .setInitialDelay(30, TimeUnit.SECONDS)
+        .build()*/
     val constrainedRequest = OneTimeWorkRequest.Builder(WorkMeneger::class.java)
         .setConstraints(constraints)
         .build()
