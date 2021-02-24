@@ -1,5 +1,7 @@
 package com.appforacademy.serviseAndMeneger
 
+import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.app.Service
 import android.content.ContentValues
 import android.content.Intent
@@ -7,12 +9,19 @@ import android.os.Binder
 import android.os.IBinder
 import android.util.Log
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.room.ext.KotlinTypeNames.CHANNEL
+import com.android.academy.fundamentals.homework.features.data.Movie
+import com.appforacademy.MainActivity
 import com.appforacademy.PresenterMoviesList
+import com.appforacademy.R
 import com.appforacademy.data.APIPlaynow
 import com.appforacademy.data.ApiMovie
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.metadata.internal.metadata.jvm.JvmProtoBuf.flags
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -30,8 +39,42 @@ class UpdateBoundService: Service() {
         return binder
     }
 
+    suspend fun showNotification(id: String,name:String,rating:String){
+        var intent = Intent(applicationContext, MainActivity::class.java)
+            .setAction(Intent.ACTION_VIEW)
+            .putExtra("movieId", id)
+
+
+        val pendingIntent =  PendingIntent.getActivity(applicationContext, 1, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT)
+
+
+
+        val notification = NotificationCompat.Builder(applicationContext, "AAMovies")
+            .setContentTitle("Андроид Академия Фильмы")
+            .setContentText("Лучший фильм: "+name+" рейтинг:"+rating)
+            .setSmallIcon(R.drawable.ic_message)
+            .setContentIntent(pendingIntent)
+
+        //.setSmallIcon(R.drawable.ic_message)
+        // .setWhen(message.timestamp)
+        // .setLargeIcon(bitmapIcon)
+        // .build()
+        Log.i(ContentValues.TAG, "создалось notification!")
+
+        try {
+
+
+            with(NotificationManagerCompat.from(applicationContext)) {
+                // notificationId is a unique int for each notification that you must define
+                notify(2, notification.build())
+            }
+        }  catch (e: Exception) {
+            Log.i(ContentValues.TAG, "error"+e.toString())
+        }
+    }
     fun updateInfoViaServise(){
-        Log.i(ContentValues.TAG, "Запущеный сервис!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        Log.i(ContentValues.TAG, "Запущеный сервис!")
 
         CoroutineScope(Dispatchers.IO).launch {
             var firstWelcomeMovies:APIPlaynow = RetrofitModule.MoviesApi.getMovie()
@@ -39,17 +82,20 @@ class UpdateBoundService: Service() {
             var newListMovies = presenterForUpdate.creatNewListMovies(firstWelcomeMovies)
             //сохранение в локальную базу данных
             presenterForUpdate.insertMoviesInLocalDB(newListMovies)
-            Log.i(ContentValues.TAG, "Сохранилось в БД!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            Log.i(ContentValues.TAG, "Сохранилось в БД!")
+
+          // var topic = newListMovies.sortedBy(Movie::ratings) //{ it.ratings.first }
+
+            var listmovies= newListMovies.toMutableList()
+            listmovies.sortBy { it.ratings }
+
+
+            var beteeMovie = listmovies.size-1
+            //показать уведомление с фильмом
+            showNotification(listmovies[beteeMovie].id.toString(),listmovies[beteeMovie].title.toString(),listmovies[beteeMovie].ratings.toString())
 
         }
-        /*
 
-            var firstWelcomeMovies:APIPlaynow = RetrofitModule.MoviesApi.getMovie()
-           //
-
-            viewMoviesList?.loadMoviesInListFromOnline(newListMovies)
-            //сохранение в локальную базу данных
-            insertMoviesInLocalDB(newListMovies)*/
     }
 
     inner class UpdateBoundServiceBinder : Binder() {
