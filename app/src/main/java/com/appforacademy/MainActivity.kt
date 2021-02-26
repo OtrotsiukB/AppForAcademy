@@ -42,6 +42,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
 
+
 //import androidx.navigation.fragment
 
 
@@ -165,7 +166,11 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
 
       //  controler.navigate(R.id.movieListFragment_to_movieFragmentDetall)
         var bundle = bundleOf("movie" to data)
-      //  controler.navigate(R.id.movieListFragment_to_movieFragmentDetall,bundle)
+      // controler.navigate(R.id.movieListFragment_to_movieFragmentDetall,bundle)
+
+        val directions =  com.appforacademy.fragment_movies_listDirections.movieListFragmentToMovieFragmentDetall(data)
+
+        controler.navigate(directions)
 
 //  MovieListFragmentDirections.actionListToDetail(movieId)
        // val movieCardTransactionName = getString(R.string.movie_card_detail_transition_name)

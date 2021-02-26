@@ -9,6 +9,10 @@
         android:name="com.appforacademy.fragment_movies_list"
         android:label="MovieListFragment"
         tools:layout="@layout/fragment_movies_list">
+        <argument
+            android:name="movie"
+            app:argType="com.android.academy.fundamentals.homework.features.data.Movie" />
+
         <action
             android:id="@+id/movieListFragment_to_movieFragmentDetall"
             app:destination="@id/movieFragmentDetall" />

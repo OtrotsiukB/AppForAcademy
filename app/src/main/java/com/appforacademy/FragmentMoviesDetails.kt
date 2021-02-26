@@ -46,12 +46,12 @@ class fragment_movies_details : Fragment(),ViewMoviesDetall {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
+       /* sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.Fragment_container_Main// R.id.nav_host_fragment//?????????????????????????????????
             duration = 300.toLong()//resources.getInteger(R.integer.reply_motion_duration_large).toLong()
             scrimColor = Color.TRANSPARENT
            // setAllContainerColors(requireContext().themeColor(R.attr.colorSurface))
-        }
+        }*/
 
 
         arguments?.let {
