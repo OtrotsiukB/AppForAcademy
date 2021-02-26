@@ -22,7 +22,7 @@ class MoviesRVAdapter(private val listener: OnItemClickListener): RecyclerView.A
 
 
     interface OnItemClickListener {
-        fun openMovieDetallTransitionsFromAdapterMOVIES( data: Movie)
+        fun openMovieDetallTransitionsFromAdapterMOVIES(cardView: View, data: Movie)
         fun onItemClick(data: Movie)
 
     }
@@ -101,7 +101,7 @@ class EmptyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
          itemView.setOnClickListener {
              //listener.onItemClick(data)
              //listener.openMovieDetallTransitionsFromAdapterMOVIES(card,data)
-             listener.openMovieDetallTransitionsFromAdapterMOVIES(data)
+             listener.openMovieDetallTransitionsFromAdapterMOVIES(it,data)
          }
 
      }

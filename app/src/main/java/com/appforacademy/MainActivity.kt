@@ -10,6 +10,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.app.NotificationCompat
@@ -18,7 +19,6 @@ import androidx.core.os.bundleOf
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
-
 import androidx.room.Room
 import com.android.academy.fundamentals.homework.features.data.Movie
 import com.appforacademy.DBRoom.DatabaseR
@@ -35,10 +35,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Path
-
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
 
@@ -137,7 +135,7 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
         }
     }
 
-    override fun openMovieDetallTransitions( data: Movie) {
+    override fun openMovieDetallTransitions(cardView: View, data: Movie) {
       /*  val emailCardDetailTransitionName = getString(R.string.email_card_detail_transition_name)
      //  /*/ val extras = FragmentNavigatorExtras(cardView to emailCardDetailTransitionName)*/
       //  val extras = FragmentNavigatoeExtras(cardView to emailCardDetailTransitionName )
@@ -167,6 +165,8 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
       //  controler.navigate(R.id.movieListFragment_to_movieFragmentDetall)
         var bundle = bundleOf("movie" to data)
       // controler.navigate(R.id.movieListFragment_to_movieFragmentDetall,bundle)
+        val emailCardDetailTransitionName = getString(R.string.movie_card_transition_name)
+        val extras = FragmentNavigatorExtras(cardView to emailCardDetailTransitionName)
 
         val directions =  com.appforacademy.fragment_movies_listDirections.movieListFragmentToMovieFragmentDetall(data)
 
