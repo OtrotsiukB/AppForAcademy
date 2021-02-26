@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkManager
 import com.android.academy.fundamentals.homework.features.data.Movie
@@ -31,6 +32,8 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WorkManager.getInstance(requireContext()).beginWith(workRepository.constrainedRequest)
+            .then(workRepository.delayedRequest).enqueue()
 
 
     }
@@ -78,8 +81,8 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
        // loadMoviesInList()
 
        // WorkManager.getInstance(requireContext()).enqueue(workRepository.constrainedRequest)
-        WorkManager.getInstance(requireContext()).beginWith(workRepository.constrainedRequest)
-            .then(workRepository.delayedRequest).enqueue()
+      /*  WorkManager.getInstance(requireContext()).beginWith(workRepository.constrainedRequest)
+            .then(workRepository.delayedRequest).enqueue()*/
     }
     override fun onStart() {
         super.onStart()
@@ -95,6 +98,7 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
 
 
     interface ClickListener {
+        fun openMovieDetallTransitions(data: Movie)
         fun openMovieDetall(data: Movie)
 
 
@@ -128,7 +132,13 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
         recycler?.adapter=movieAdapter
     }
 
+    override fun openMovieDetallTransitionsFromAdapterMOVIES( data: Movie) {
+
+        listener?.openMovieDetallTransitions(data)
+    }
+
     override fun onItemClick(data: Movie) {
         presenterMoviesList?.openMoviesDetallNew(data)
+
     }
 }

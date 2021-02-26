@@ -11,8 +11,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+
 import androidx.room.Room
 import com.android.academy.fundamentals.homework.features.data.Movie
 import com.appforacademy.DBRoom.DatabaseR
@@ -29,6 +35,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Path
+
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
+
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.navOptions
+
+//import androidx.navigation.fragment
+
+
 
 class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,fragment_movies_details.ClickListenerDetall {
 
@@ -55,7 +71,7 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
             }
             // Register the channel with the system
             val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
@@ -73,14 +89,14 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
 
 
                  if(savedInstanceState==null) {
-            supportFragmentManager.beginTransaction().apply {
+          /*  supportFragmentManager.beginTransaction().apply {
 
                 add(R.id.Fragment_container_Main, fragment_movies_list)
 
                 commit()
                 Toast.makeText(applicationContext,"ИД фильма",Toast.LENGTH_SHORT)
                 intent?.let(::handleIntent)
-            }
+            }*/
         }
 
     }
@@ -120,13 +136,71 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
         }
     }
 
-    override fun openMovieDetall(data: Movie){
-        supportFragmentManager.beginTransaction().apply {
+    override fun openMovieDetallTransitions( data: Movie) {
+      /*  val emailCardDetailTransitionName = getString(R.string.email_card_detail_transition_name)
+     //  /*/ val extras = FragmentNavigatorExtras(cardView to emailCardDetailTransitionName)*/
+      //  val extras = FragmentNavigatoeExtras(cardView to emailCardDetailTransitionName )
+        // val directions = supportFragmentManager.beginTransaction().apply {
+         supportFragmentManager.beginTransaction().apply {
+           // .addSharedElement(view, "email_card_detail")
+        //    addSharedElement(view, "email_card_detail")
             addToBackStack(null)
             add(R.id.Fragment_container_Main,fragment_movies_details.newInstance(data).apply { setListener(this@MainActivity) })
             commit()
 
         }
+
+        findNavController().navigate(directions, extras)*/
+      /*  val emailCardDetailTransitionName = getString(R.string.email_card_detail_transition_name)
+        val extras = FragmentNavigatorExtras(view to emailCardDetailTransitionName)
+        val directions = fragment  // Fra.actionHomeFragmentToEmailFragment(email.id)
+        findNavController().navigate(directions, extras)*/
+
+       /* val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController*/
+
+
+        var controler = this.findNavController(R.id.nav_host_fragment)
+
+      //  controler.navigate(R.id.movieListFragment_to_movieFragmentDetall)
+        var bundle = bundleOf("movie" to data)
+      //  controler.navigate(R.id.movieListFragment_to_movieFragmentDetall,bundle)
+
+//  MovieListFragmentDirections.actionListToDetail(movieId)
+       // val movieCardTransactionName = getString(R.string.movie_card_detail_transition_name)
+       // val extras = FragmentNavigatorExtras(view to movieCardTransactionName)
+
+
+       // val directions = MovieListFragmentDirections.movieListFragment_to_movieFragmentDetall(data)
+
+//val di = directions
+       // controler.navigate(movi)
+
+
+
+
+
+      //      MovieListFragmentDirections.actionListToDetail(movieId)
+      //  findNavController().navigate(directions, extras)
+
+
+    }
+
+    override fun openMovieDetall(data: Movie){
+
+        var controler = this.findNavController(R.id.nav_host_fragment)
+
+        //  controler.navigate(R.id.movieListFragment_to_movieFragmentDetall)
+        var bundle = bundleOf("movie" to data)
+        controler.navigate(R.id.movieListFragment_to_movieFragmentDetall,bundle)
+
+        /*supportFragmentManager.beginTransaction().apply {
+            addToBackStack(null)
+            add(R.id.Fragment_container_Main,fragment_movies_details.newInstance(data).apply { setListener(this@MainActivity) })
+            commit()
+
+        }*/
      }
 
 
