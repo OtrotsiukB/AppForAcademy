@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.academy.fundamentals.homework.features.data.Movie
 import com.bumptech.glide.Glide
@@ -22,7 +23,7 @@ class MoviesRVAdapter(private val listener: OnItemClickListener): RecyclerView.A
 
 
     interface OnItemClickListener {
-        fun openMovieDetallTransitionsFromAdapterMOVIES(cardView: View, data: Movie)
+        fun openMovieDetallTransitionsFromAdapterMOVIES(cardView: View, data: Movie,name:String)
         fun onItemClick(data: Movie)
 
     }
@@ -49,7 +50,7 @@ class MoviesRVAdapter(private val listener: OnItemClickListener): RecyclerView.A
 
 
         holder.onBind(data[position],listener)
-
+        ViewCompat.setTransitionName(holder.itemView,"card"+position.toString())
 
       //  holder.nameMovies.text=moviesList[position].NameMovies.toString()
        // holder.nameMovies.text="wwwwwwww"
@@ -77,6 +78,7 @@ class EmptyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     var ratingBar= itemView.findViewById<RatingBar>(R.id.ratingBarOnHolderMovie)
 
     var card = itemView.findViewById<CardView>(R.id.card_view)
+    var cardName:String=""
      fun onBind(data: Movie, listener: OnItemClickListener) {
 
          nameMovies.text=data.title
@@ -88,7 +90,7 @@ class EmptyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
          reviews.text=data.numberOfRatings.toString()+" Reviews"
          time.text=data.runtime.toString()+" min"
 
-
+         cardName=  card.transitionName
 
          Glide.with(itemView.context)
              //.load(R.drawable.movie6)
@@ -101,7 +103,7 @@ class EmptyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
          itemView.setOnClickListener {
              //listener.onItemClick(data)
              //listener.openMovieDetallTransitionsFromAdapterMOVIES(card,data)
-             listener.openMovieDetallTransitionsFromAdapterMOVIES(it,data)
+             listener.openMovieDetallTransitionsFromAdapterMOVIES(it,data,cardName)
          }
 
      }

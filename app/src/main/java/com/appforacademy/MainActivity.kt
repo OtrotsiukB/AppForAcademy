@@ -135,59 +135,24 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
         }
     }
 
-    override fun openMovieDetallTransitions(cardView: View, data: Movie) {
-      /*  val emailCardDetailTransitionName = getString(R.string.email_card_detail_transition_name)
-     //  /*/ val extras = FragmentNavigatorExtras(cardView to emailCardDetailTransitionName)*/
-      //  val extras = FragmentNavigatoeExtras(cardView to emailCardDetailTransitionName )
-        // val directions = supportFragmentManager.beginTransaction().apply {
-         supportFragmentManager.beginTransaction().apply {
-           // .addSharedElement(view, "email_card_detail")
-        //    addSharedElement(view, "email_card_detail")
-            addToBackStack(null)
-            add(R.id.Fragment_container_Main,fragment_movies_details.newInstance(data).apply { setListener(this@MainActivity) })
-            commit()
-
-        }
-
-        findNavController().navigate(directions, extras)*/
-      /*  val emailCardDetailTransitionName = getString(R.string.email_card_detail_transition_name)
-        val extras = FragmentNavigatorExtras(view to emailCardDetailTransitionName)
-        val directions = fragment  // Fra.actionHomeFragmentToEmailFragment(email.id)
-        findNavController().navigate(directions, extras)*/
-
-       /* val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController*/
+    override fun openMovieDetallTransitions(cardView: View, data: Movie,name:String) {
 
 
         var controler = this.findNavController(R.id.nav_host_fragment)
 
-      //  controler.navigate(R.id.movieListFragment_to_movieFragmentDetall)
+
         var bundle = bundleOf("movie" to data)
-      // controler.navigate(R.id.movieListFragment_to_movieFragmentDetall,bundle)
-        val emailCardDetailTransitionName = getString(R.string.movie_card_transition_name)
+      // getString(R.string.email_card_detail_transition_name)
+        val s = name
+        var d = s
+        val emailCardDetailTransitionName = getString(R.string.movie_card_detail_transition_name)
         val extras = FragmentNavigatorExtras(cardView to emailCardDetailTransitionName)
 
         val directions =  com.appforacademy.fragment_movies_listDirections.movieListFragmentToMovieFragmentDetall(data)
 
-        controler.navigate(directions)
+       // controler.navigate(directions)
+        controler.navigate(directions, extras)
 
-//  MovieListFragmentDirections.actionListToDetail(movieId)
-       // val movieCardTransactionName = getString(R.string.movie_card_detail_transition_name)
-       // val extras = FragmentNavigatorExtras(view to movieCardTransactionName)
-
-
-       // val directions = MovieListFragmentDirections.movieListFragment_to_movieFragmentDetall(data)
-
-//val di = directions
-       // controler.navigate(movi)
-
-
-
-
-
-      //      MovieListFragmentDirections.actionListToDetail(movieId)
-      //  findNavController().navigate(directions, extras)
 
 
     }

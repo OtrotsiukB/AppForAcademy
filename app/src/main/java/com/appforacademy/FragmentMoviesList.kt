@@ -98,7 +98,7 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
 
 
     interface ClickListener {
-        fun openMovieDetallTransitions(cardView: View,data: Movie)
+        fun openMovieDetallTransitions(cardView: View,data: Movie,name:String)
         fun openMovieDetall(data: Movie)
 
 
@@ -132,9 +132,9 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
         recycler?.adapter=movieAdapter
     }
 
-    override fun openMovieDetallTransitionsFromAdapterMOVIES(cardView: View, data: Movie) {
+    override fun openMovieDetallTransitionsFromAdapterMOVIES(cardView: View, data: Movie,name:String) {
 
-        listener?.openMovieDetallTransitions(cardView,data)
+        listener?.openMovieDetallTransitions(cardView,data,name)
     }
 
     override fun onItemClick(data: Movie) {

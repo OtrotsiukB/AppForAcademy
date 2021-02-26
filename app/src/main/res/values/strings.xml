@@ -27,9 +27,7 @@
 
     <string name="fragment_actors_chosen_text">You chose: %1$s</string>
 
-    <string name="email_recipient_to">To %1$s</string>
-    <string name="email_card_transition_name">email_card_%1$s</string>
-    <string name="email_card_detail_transition_name">email_card_detail</string>
+
 
     <!--    Animation-->
     <string name="movie_recipient_to">To %1$s</string>
