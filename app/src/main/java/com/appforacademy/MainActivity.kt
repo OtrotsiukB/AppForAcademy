@@ -16,6 +16,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.doOnPreDraw
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -39,9 +40,10 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
+import com.google.android.material.transition.MaterialElevationScale
 
 
-//import androidx.navigation.fragment
+import androidx.fragment.app.Fragment
 
 
 
@@ -143,8 +145,14 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
 
         var bundle = bundleOf("movie" to data)
       // getString(R.string.email_card_detail_transition_name)
-        val s = name
-        var d = s
+
+      /*  exitTransition = MaterialElevationScale(false).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }*/
+
         val emailCardDetailTransitionName = getString(R.string.movie_card_detail_transition_name)
         val extras = FragmentNavigatorExtras(cardView to emailCardDetailTransitionName)
 
