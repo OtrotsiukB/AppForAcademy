@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".fragment_movies_details">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ConsraintLayoutMain1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/backAll"
-           >
+            >
 
 
             <ImageView
@@ -29,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/usually"
-                android:layout_marginTop="57dp"
+                android:layout_marginTop="@dimen/top_58"
                 android:text="@string/back"
 
                 android:textColor="@color/countFeedback"
@@ -55,7 +61,7 @@
                 android:layout_marginTop="@dimen/usually12"
                 android:text="@string/nameMovies"
                 android:textAllCaps="false"
-                android:textColor="@color/age"
+                android:textColor="@color/storyline"
                 android:textSize="36sp"
                 android:textStyle="bold"
                 android:typeface="normal"
@@ -63,7 +69,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/canAge" />
 
             <TextView
-                android:id="@+id/typeMovie"
+                android:id="@+id/tv_typeMovie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/usually"
@@ -81,7 +87,7 @@
                 android:text="@string/countFeedback"
                 android:textColor="@color/countFeedback"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/typeMovie" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie" />
 
             <ImageView
                 android:id="@+id/appraisal5"
@@ -90,7 +96,7 @@
                 android:layout_marginTop="@dimen/usually4"
                 android:layout_marginEnd="@dimen/usually8"
                 app:layout_constraintEnd_toStartOf="@+id/countFeadBack"
-                app:layout_constraintTop_toBottomOf="@+id/typeMovie"
+                app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie"
                 app:srcCompat="@drawable/staricon" />
 
             <ImageView
@@ -100,9 +106,9 @@
                 android:layout_marginTop="@dimen/usually4"
                 android:layout_marginEnd="25dp"
                 app:layout_constraintEnd_toStartOf="@+id/countFeadBack"
-                app:layout_constraintTop_toBottomOf="@+id/typeMovie"
+                app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie"
                 app:srcCompat="@drawable/staricon1"
-                 />
+                />
 
             <ImageView
                 android:id="@+id/appraisal3"
@@ -111,9 +117,9 @@
                 android:layout_marginTop="@dimen/usually4"
                 android:layout_marginEnd="41dp"
                 app:layout_constraintEnd_toStartOf="@+id/countFeadBack"
-                app:layout_constraintTop_toBottomOf="@+id/typeMovie"
+                app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie"
                 app:srcCompat="@drawable/staricon1"
-                 />
+                />
 
             <ImageView
                 android:id="@+id/appraisal2"
@@ -123,9 +129,9 @@
                 android:layout_marginEnd="58dp"
 
                 app:layout_constraintEnd_toStartOf="@+id/countFeadBack"
-                app:layout_constraintTop_toBottomOf="@+id/typeMovie"
+                app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie"
                 app:srcCompat="@drawable/staricon1"
-                 />
+                />
 
             <ImageView
                 android:id="@+id/appraisal1"
@@ -134,9 +140,9 @@
                 android:layout_marginTop="@dimen/usually4"
                 android:layout_marginEnd="74dp"
                 app:layout_constraintEnd_toStartOf="@+id/countFeadBack"
-                app:layout_constraintTop_toBottomOf="@+id/typeMovie"
+                app:layout_constraintTop_toBottomOf="@+id/tv_typeMovie"
                 app:srcCompat="@drawable/staricon1"
-                 />
+                />
 
             <TextView
                 android:id="@+id/Storyline"
@@ -295,3 +301,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+
+</FrameLayout>
