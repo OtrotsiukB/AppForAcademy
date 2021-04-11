@@ -43,4 +43,5 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
 
 
 
+
 }

@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,7 +21,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [fragment_movies_list.newInstance] factory method to
  * create an instance of this fragment.
  */
-class fragment_movies_list : Fragment() {
+class fragment_movies_list : Fragment(),List_RecyclerViewAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -28,6 +30,8 @@ class fragment_movies_list : Fragment() {
     private var groupMovie:Group? = null
 
     private var tv_try_listener:TextView?=null
+
+    private var recycler: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,21 +47,24 @@ class fragment_movies_list : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movies_list, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        groupMovie= view.findViewById<Group>(R.id.gr_movie_one).apply {
-            setOnClickListener { listener?.openMovieDetall() }
 
-        }
+        recycler = view.findViewById(R.id.rv_list_movies)
 
+        recycler?.adapter=List_RecyclerViewAdapter(this)
 
-        tv_try_listener=view.findViewById<TextView>(R.id.tv_name_movies).apply {
-
-            setOnClickListener { listener?.openMovieDetall() }
-        }
     }
+    override fun onStart() {
+        super.onStart()
+
+
+    }
+
+
 
     fun setListener(l: ClickListener) {
         listener = l
@@ -99,5 +106,9 @@ class fragment_movies_list : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onItemClick(movie: dataMovie) {
+        listener?.openMovieDetall()
     }
 }
