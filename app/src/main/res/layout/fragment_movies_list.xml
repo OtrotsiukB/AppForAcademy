@@ -38,16 +38,18 @@
             android:id="@+id/rv_list_movies"
             android:layout_width="0dp"
             android:layout_height="0dp"
+
             android:layout_marginStart="@dimen/usually8"
             android:layout_marginTop="@dimen/usually8"
             android:layout_marginEnd="@dimen/usually8"
+
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_movies_list"
             app:spanCount="2"
-            tools:listitem="@layout/view_holder_movie"
+            tools:listitem="@layout/movieHolder"
             tools:orientation="horizontal" />
 
 
