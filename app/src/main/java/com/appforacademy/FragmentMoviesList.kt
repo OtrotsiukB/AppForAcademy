@@ -8,10 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.WorkManager
 import com.android.academy.fundamentals.homework.features.data.Movie
 import com.android.academy.fundamentals.homework.features.data.loadMovies
+import com.appforacademy.serviseAndMeneger.WorkWithWorkmeneger
 import kotlinx.coroutines.*
-
 
 
 class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,ViewMoviesList {
@@ -26,6 +27,7 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
 
     private var presenterMoviesList:PresenterMoviesList?=null
 
+    private val workRepository = WorkWithWorkmeneger()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,7 +77,9 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
         presenterMoviesList?.loadMoviesInListfromPresenter()
        // loadMoviesInList()
 
-
+       // WorkManager.getInstance(requireContext()).enqueue(workRepository.constrainedRequest)
+        WorkManager.getInstance(requireContext()).beginWith(workRepository.constrainedRequest)
+            .then(workRepository.delayedRequest).enqueue()
     }
     override fun onStart() {
         super.onStart()
