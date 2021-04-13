@@ -1,14 +1,15 @@
 package com.appforacademy
 
+import android.content.Context
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.room.Room
 import com.android.academy.fundamentals.homework.features.data.Actor
 import com.android.academy.fundamentals.homework.features.data.Genre
 import com.android.academy.fundamentals.homework.features.data.Movie
-import com.appforacademy.data.APIPlaynow
-import com.appforacademy.data.ApiMovie
+import com.appforacademy.DBRoom.DatabaseR
+import com.appforacademy.data.*
 
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.*
-import kotlinx.serialization.*
 
 
 import okhttp3.MediaType.Companion.toMediaType
@@ -17,30 +18,35 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
 
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType
 import okhttp3.OkHttpClient
-import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.http.Path
 
 
 class PresenterMoviesList {
 
     private var viewMoviesList:ViewMoviesList?=null
-
+    private var locationsDb:DatabaseR? = null
 
 
     fun loadMoviesInListfromPresenter(){
-        viewMoviesList?.loadMoviesInList()
+       // viewMoviesList?.loadMoviesInList()
         CoroutineScope(Dispatchers.IO).launch {
+            var listMovieFromDB = getListMoviesFromLocalDB()
+            if (listMovieFromDB.size>1){
+                viewMoviesList?.loadMoviesInListFromOnline(listMovieFromDB)
+            }
+
             var firstWelcomeMovies:APIPlaynow = RetrofitModule.MoviesApi.getMovie()
            // var x = firstWelcomeMovies.results
            var newListMovies = creatNewListMovies(firstWelcomeMovies)
             viewMoviesList?.loadMoviesInListFromOnline(newListMovies)
+            //сохранение в локальную базу данных
+            insertMoviesInLocalDB(newListMovies)
         }
 
     }
+
 
     suspend fun creatNewListMovies(apiPlaynow:APIPlaynow):List<Movie>{
         var newListMovies:MutableList<Movie>?=mutableListOf<Movie>()
@@ -86,26 +92,148 @@ class PresenterMoviesList {
 
         }
 
-        var tempMovie:Movie= Movie(tempApiMovie.id!!.toInt(),
+        var tempMovie:Movie= Movie(
+            tempApiMovie.id!!.toInt(),
             tempApiMovie.original_title.toString(),
             tempApiMovie.overview.toString(),
-            "https://image.tmdb.org/t/p/w500"+tempApiMovie.poster_path,
-            "https://image.tmdb.org/t/p/w500"+tempApiMovie.backdrop_path,
-            tempApiMovie.vote_average!!.toFloat()/2,
+            "https://image.tmdb.org/t/p/w500" + tempApiMovie.poster_path,
+            "https://image.tmdb.org/t/p/w500" + tempApiMovie.backdrop_path,
+            tempApiMovie.vote_average!!.toFloat() / 2,
             tempApiMovie.vote_count!!.toInt(),
-        18,
+            18,
             tempApiMovie.runtime!!.toInt(),
-            tempGenre!!.toList(),tempActor!!.toList())
+            tempGenre!!.toList(),
+            tempActor!!.toList()
+        )
 
             return tempMovie
     }
 
+
+    suspend fun insertMoviesInLocalDB(listMovie:List<Movie>){
+        locationsDb?.DaoInDB()?.deleteAllMovies()
+        locationsDb?.DaoInDB()?.deleteAllActor()
+        locationsDb?.DaoInDB()?.deleteAllGenre()
+        for (movie in listMovie){
+            locationsDb?.DaoInDB()?.insertMovies(convertMovieToMoviePersistensy(movie))
+            for (genre in movie.genres){
+                locationsDb?.DaoInDB()?.insertGenre(convertGenreToGenrePersistensy(genre,movie.id))
+            }
+            for (actor in movie.actors){
+                locationsDb?.DaoInDB()?.insertActor(convertActorToActorPersistensy(actor,movie.id))
+            }
+        }
+
+    }
+
+    suspend fun convertActorToActorPersistensy(actor: Actor,idMovie: Int):ActorPersistensy{
+        val acterPersistensy:ActorPersistensy= ActorPersistensy(
+            null,
+            actor.id,
+            actor.name,
+            actor.picture,
+            idMovie
+        )
+        return acterPersistensy
+    }
+    suspend fun convertGenreToGenrePersistensy(genre:Genre,idMovie:Int):GenrePersistensy{
+        val genrePersistensy:GenrePersistensy= GenrePersistensy(
+            null,
+            genre.id,
+            genre.name,
+            idMovie
+             )
+        return genrePersistensy
+    }
+    suspend fun convertMovieToMoviePersistensy(movie:Movie):MoviePersistensy{
+        val moviePersistensy:MoviePersistensy= MoviePersistensy(
+            movie.id,
+            movie.title,
+            movie.overview,
+            movie.poster,
+            movie.backdrop,
+            movie.ratings,
+            movie.numberOfRatings,
+            movie.minimumAge,
+            movie.runtime)
+        return moviePersistensy
+    }
+
+    suspend fun getListMoviesFromLocalDB():List<Movie>{
+        var newListMovie= mutableListOf<Movie>()
+
+        var movieFromDB = locationsDb?.DaoInDB()?.getAllMovies()
+        if (movieFromDB != null) {
+            for (moviePersistensy in movieFromDB){
+                var newlistGenre= mutableListOf<Genre>()///////////
+                var newActor = mutableListOf<Actor>()
+                //создаем список жанров
+                var listGenrePersistensy=locationsDb?.DaoInDB()?.getGenreFromMovie(moviePersistensy.id.toInt())
+                if (listGenrePersistensy != null) {
+                    for (genre in listGenrePersistensy)
+                   newlistGenre.add(convertGenrePersistensyToGenre(genre))
+
+                }
+
+                //создаем список актеров
+                var listActorPersistensy=locationsDb?.DaoInDB()?.getActorFromMovie(moviePersistensy.id.toInt())
+                if (listActorPersistensy != null) {
+                    for (actor in listActorPersistensy){
+
+                        newActor.add(convertActorPersistensyToActor(actor))
+                    }
+
+                }
+
+                //Создание фильма и добавление
+                newListMovie.add(makeMovieFromMoviePersistensyAndGenreAndActor(moviePersistensy,newlistGenre.toList(),newActor.toList()))
+
+            }
+
+        }
+
+        return newListMovie
+
+    }
+    suspend fun makeMovieFromMoviePersistensyAndGenreAndActor(moviePersistensy: MoviePersistensy,listGenre:List<Genre>,listActor:List<Actor>):Movie{
+        var newMovie=Movie(
+            moviePersistensy.id,
+            moviePersistensy.title,
+            moviePersistensy.overview,
+            moviePersistensy.poster,
+            moviePersistensy.backdrop,
+            moviePersistensy.ratings,
+            moviePersistensy.numberOfRatings,
+            moviePersistensy.minimumAge,
+            moviePersistensy.runtime,
+            listGenre,
+            listActor
+        )
+        return newMovie
+    }
+    suspend fun convertActorPersistensyToActor(actorPersistensy: ActorPersistensy):Actor{
+        var newActor:Actor= Actor(actorPersistensy.id,actorPersistensy.name,actorPersistensy.picture)
+        return newActor
+    }
+    suspend fun convertGenrePersistensyToGenre(genrePersistensy: GenrePersistensy):Genre{
+        var newGenre:Genre=Genre(genrePersistensy.id,genrePersistensy.name)
+        return newGenre
+    }
+
+
+
     fun  openMoviesDetallNew(data:Movie){
         viewMoviesList?.openMoviesDetallNew(data)
+
     }
     fun attachView(view: ViewMoviesList) {
         this.viewMoviesList = view
+        locationsDb = DatabaseR.create(view.giveContext())//база данных
+
+
+
     }
+
     fun detachView() {
         this.viewMoviesList = null
     }
