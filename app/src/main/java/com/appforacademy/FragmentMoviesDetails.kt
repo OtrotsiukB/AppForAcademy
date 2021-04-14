@@ -1,6 +1,7 @@
 package com.appforacademy
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.academy.fundamentals.homework.features.data.Movie
 import com.bumptech.glide.Glide
+import com.google.android.material.transition.MaterialContainerTransform
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,9 +46,20 @@ class fragment_movies_details : Fragment(),ViewMoviesDetall {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            drawingViewId = R.id.nav_host_fragment //Fragment_container_Main// R.id.nav_host_fragment//?????????????????????????????????
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+            scrimColor = Color.TRANSPARENT
+            setAllContainerColors(requireContext().themeColor(R.attr.colorSurface))
+        }
+
+
         arguments?.let {
 
-            var movieData:Movie? = it.getParcelable(ARG_MOVIE)
+          //  var movieData:Movie? = it.getParcelable(ARG_MOVIE)
+
+            var movieData:Movie? = it.getParcelable("movie")
+
             //создание презентора
             presenterMoviesDetall= PresenterMoviesDetall(movieData)
         }

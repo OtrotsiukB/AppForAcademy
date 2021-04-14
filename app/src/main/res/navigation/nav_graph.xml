@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/movieListFragment">
+    <fragment
+        android:id="@+id/movieListFragment"
+        android:name="com.appforacademy.fragment_movies_list"
+        android:label="MovieListFragment"
+        tools:layout="@layout/fragment_movies_list">
+        <argument
+            android:name="movie"
+            app:argType="com.android.academy.fundamentals.homework.features.data.Movie" />
+
+        <action
+            android:id="@+id/movieListFragment_to_movieFragmentDetall"
+            app:destination="@id/movieFragmentDetall" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieFragmentDetall"
+        android:name="com.appforacademy.fragment_movies_details"
+        android:label="fragment_navigate"
+        tools:layout="@layout/fragment_movies_details" >
+        <argument
+            android:name="movie"
+            app:argType="com.android.academy.fundamentals.homework.features.data.Movie" />
+    </fragment>
+
+</navigation>
+
+

@@ -10,9 +10,16 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.os.bundleOf
+import androidx.core.view.doOnPreDraw
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.room.Room
 import com.android.academy.fundamentals.homework.features.data.Movie
 import com.appforacademy.DBRoom.DatabaseR
@@ -29,6 +36,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Path
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.navOptions
+import com.google.android.material.transition.MaterialElevationScale
+
+
+import androidx.fragment.app.Fragment
+
+
 
 class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,fragment_movies_details.ClickListenerDetall {
 
@@ -55,7 +72,7 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
             }
             // Register the channel with the system
             val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
@@ -73,14 +90,14 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
 
 
                  if(savedInstanceState==null) {
-            supportFragmentManager.beginTransaction().apply {
+          /*  supportFragmentManager.beginTransaction().apply {
 
                 add(R.id.Fragment_container_Main, fragment_movies_list)
 
                 commit()
                 Toast.makeText(applicationContext,"ИД фильма",Toast.LENGTH_SHORT)
                 intent?.let(::handleIntent)
-            }
+            }*/
         }
 
     }
@@ -120,13 +137,48 @@ class MainActivity : AppCompatActivity(),fragment_movies_list.ClickListener,frag
         }
     }
 
+    override fun openMovieDetallTransitions(cardView: View, data: Movie,name:String) {
+
+
+        var controler = this.findNavController(R.id.nav_host_fragment)
+
+
+        var bundle = bundleOf("movie" to data)
+      // getString(R.string.email_card_detail_transition_name)
+
+      /*  exitTransition = MaterialElevationScale(false).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }*/
+
+        val emailCardDetailTransitionName = getString(R.string.movie_card_detail_transition_name)
+        val extras = FragmentNavigatorExtras(cardView to emailCardDetailTransitionName)
+
+        val directions =  com.appforacademy.fragment_movies_listDirections.movieListFragmentToMovieFragmentDetall(data)
+
+       // controler.navigate(directions)
+        controler.navigate(directions, extras)
+
+
+
+    }
+
     override fun openMovieDetall(data: Movie){
-        supportFragmentManager.beginTransaction().apply {
+
+        var controler = this.findNavController(R.id.nav_host_fragment)
+
+        //  controler.navigate(R.id.movieListFragment_to_movieFragmentDetall)
+        var bundle = bundleOf("movie" to data)
+        controler.navigate(R.id.movieListFragment_to_movieFragmentDetall,bundle)
+
+        /*supportFragmentManager.beginTransaction().apply {
             addToBackStack(null)
             add(R.id.Fragment_container_Main,fragment_movies_details.newInstance(data).apply { setListener(this@MainActivity) })
             commit()
 
-        }
+        }*/
      }
 
 

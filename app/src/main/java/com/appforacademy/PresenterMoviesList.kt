@@ -32,6 +32,7 @@ class PresenterMoviesList {
     fun loadMoviesInListfromPresenter(){
        // viewMoviesList?.loadMoviesInList()
         CoroutineScope(Dispatchers.IO).launch {
+
             var listMovieFromDB = getListMoviesFromLocalDB()
             if (listMovieFromDB.size>1){
                 viewMoviesList?.loadMoviesInListFromOnline(listMovieFromDB)
@@ -235,7 +236,7 @@ class PresenterMoviesList {
     }
 
     fun detachView() {
-        this.viewMoviesList = null
+     //   this.viewMoviesList = null
     }
 
 

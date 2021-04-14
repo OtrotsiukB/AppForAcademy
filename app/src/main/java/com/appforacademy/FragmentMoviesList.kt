@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.appforacademy
 
 import android.app.Application
@@ -7,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkManager
 import com.android.academy.fundamentals.homework.features.data.Movie
@@ -29,9 +33,12 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
 
     private val workRepository = WorkWithWorkmeneger()
 
+    private var first:Boolean=true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        retainInstance = true
 
     }
 
@@ -46,16 +53,22 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
     }
 
      override fun loadMoviesInList(){
-        CoroutineScope(Dispatchers.IO).launch {
-            if (movieList==null)
-            {
-            movieList = loadMovies(requireContext())
-            }
-            addAdapterMoviesByAdapter()
-        }
+
+             CoroutineScope(Dispatchers.IO).launch {
+                 if (first==true) {
+                     if (movieList == null) {
+                         movieList = loadMovies(requireContext())
+                     }
+
+                 addAdapterMoviesByAdapter()
+                 }
+             }
+
     }
     suspend fun addAdapterMoviesByAdapter()= withContext(Dispatchers.Main) {
+
         movieAdapter.setData(movieList!!)
+
         recycler?.adapter=movieAdapter
     }
 
@@ -68,18 +81,41 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
         recycler = view.findViewById(R.id.rv_list_movies)
     }
 
+    fun runlist(){
+        movieAdapter.setData(movieList!!)
+
+        recycler?.adapter=movieAdapter
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenterMoviesList= PresenterMoviesList()
-        presenterMoviesList?.attachView(this)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
 
+
+
+        if(first==true) {
+
+
+            presenterMoviesList= PresenterMoviesList()
+
+
+
+            WorkManager.getInstance(requireContext()).beginWith(workRepository.constrainedRequest)
+                .then(workRepository.delayedRequest).enqueue()
+            presenterMoviesList?.loadMoviesInListfromPresenter()
+         //   first=false
+        }
+        presenterMoviesList?.attachView(this)
         initViews(view)
-        presenterMoviesList?.loadMoviesInListfromPresenter()
+        if (first==false){
+        runlist()
+        }
+
        // loadMoviesInList()
 
        // WorkManager.getInstance(requireContext()).enqueue(workRepository.constrainedRequest)
-        WorkManager.getInstance(requireContext()).beginWith(workRepository.constrainedRequest)
-            .then(workRepository.delayedRequest).enqueue()
+      /*  WorkManager.getInstance(requireContext()).beginWith(workRepository.constrainedRequest)
+            .then(workRepository.delayedRequest).enqueue()*/
     }
     override fun onStart() {
         super.onStart()
@@ -95,6 +131,7 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
 
 
     interface ClickListener {
+        fun openMovieDetallTransitions(cardView: View,data: Movie,name:String)
         fun openMovieDetall(data: Movie)
 
 
@@ -123,12 +160,28 @@ class fragment_movies_list : Fragment(),MoviesRVAdapter.OnItemClickListener,View
     }
 
     override suspend fun loadMoviesInListFromOnline(inMovieList: List<Movie>)= withContext(Dispatchers.Main) {
-       movieList= inMovieList
+     if (first==true) {
+         movieList = inMovieList
+
         movieAdapter.setData(movieList!!)
+
+
+         first=false
+
+
+     }
         recycler?.adapter=movieAdapter
+
+
+    }
+
+    override fun openMovieDetallTransitionsFromAdapterMOVIES(cardView: View, data: Movie,name:String) {
+
+        listener?.openMovieDetallTransitions(cardView,data,name)
     }
 
     override fun onItemClick(data: Movie) {
         presenterMoviesList?.openMoviesDetallNew(data)
+
     }
 }
